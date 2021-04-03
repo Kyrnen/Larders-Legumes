@@ -12,8 +12,10 @@ public class Player : MonoBehaviour
     public float currentStamina;
     
     //Reduce Stamina at rate of StaminaReductionValue/StaminaReductionRate
-    public float staminaReductionValue = 5f;
-    public int staminaReductionRate = 3;
+    public float staminaReductionValue = .5f;
+    public int staminaReductionRate = 5;
+    // If you have already started reducing stamina, we do not want this function to run again until it has completed itself fully,
+    // otherwise, the stamina that is reduced will compound
     bool staminaReduction = false;
 
 
@@ -52,6 +54,7 @@ public class Player : MonoBehaviour
 
     public void ReduceStaminaOverTime(float value, int time)
     {
+        
         if (!staminaReduction)
         {
             staminaReduction = true;
