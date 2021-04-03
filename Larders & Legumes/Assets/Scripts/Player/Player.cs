@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
 
         if (health.GetCurrentValue() <= 0)
         {
-            Debug.Log("Game Over");
+            FindObjectOfType<GameManager>().PlayerDied();
         }
     }
 
