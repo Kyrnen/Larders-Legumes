@@ -7,8 +7,15 @@ public class Player : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
-    public int maxStamina = 60;
-    public int currentStamina;
+    //Stamina will essentially act like a timer in most cases, decreasing over time to some degree.
+    public float maxStamina = 60f;
+    public float currentStamina;
+    
+    //Reduce Stamina at rate of StaminaReductionValue/StaminaReductionRate
+    public float staminaReductionValue = 5f;
+    public int staminaReductionRate = 3;
+    bool staminaReduction = false;
+
 
     public StatBar health;
     public StatBar stamina;
@@ -32,43 +39,84 @@ public class Player : MonoBehaviour
         {
             Heal(10);
         }
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            ReduceStamina(10);
-        }
+        
         if(Input.GetKeyDown(KeyCode.J))
         {
             RecoverStamina(10);
+            Debug.Log(currentStamina);
         }
+
+        ReduceStaminaOverTime(staminaReductionValue, staminaReductionRate);
+
+    }
+
+    public void ReduceStaminaOverTime(float value, int time)
+    {
+        if (!staminaReduction)
+        {
+            staminaReduction = true;
+            StartCoroutine(ReduceStaminaOverTimeCoroutine(value, time));
+        }
+    }
+
+    IEnumerator ReduceStaminaOverTimeCoroutine(float value, float time)
+    {
+        float staminaReduced = 0;
+        float reducedPerLoop = value / time;
+        while(staminaReduced < value)
+        {
+            Debug.Log(staminaReduced);
+            staminaReduced += reducedPerLoop;
+            yield return new WaitForSeconds(1f);
+        }
+        ReduceStamina(staminaReduced);
+        staminaReduction = false;
     }
 
     void TakeDamage (int damage)
     { 
         currentHealth -= damage;
-        health.SetStat(currentHealth);
+        health.SetValueTo(currentHealth);
+
+        if (health.GetCurrentValue() <= 0)
+        {
+            Debug.Log("Game Over");
+        }
     }
 
     void Heal (int value)
     {
         if (currentHealth < maxHealth)
         {
-            currentHealth += value;
-            health.SetStat(currentHealth);
+            if (currentHealth + value <= maxHealth)
+                currentHealth += value;
+            else
+                currentHealth = maxHealth;
+
+            health.SetValueTo(currentHealth);
         }
+        else
+            Debug.Log("You're at max health");
     }
 
-    void ReduceStamina (int value)
+    void ReduceStamina (float value)
     {
         currentStamina -= value;
-        stamina.SetStat(currentStamina);
+        stamina.SetValueTo(currentStamina);
     }
 
-    void RecoverStamina (int value)
+    void RecoverStamina (float value)
     {
         if (currentStamina < maxStamina)
         {
-            currentStamina += value;
-            stamina.SetStat(currentStamina);
+            if (currentStamina + value <= maxStamina)
+                currentStamina += value;
+            else
+                currentStamina = maxStamina;
+
+            stamina.SetValueTo(currentStamina);
         }
+        else
+            Debug.Log("You're at max stamina");
     }
 }
