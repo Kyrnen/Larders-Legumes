@@ -463,6 +463,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7862695753299987114}
   - component: {fileID: 1507632434073425494}
+  - component: {fileID: 3928356748767648012}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -498,7 +499,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf698ca5137e5445b201493df785e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 1339664624}
   cam: {fileID: 0}
+  potentialDrops:
+  - {fileID: 3415812907400147671, guid: 1aa1456c7d89cd241b70eaf76767bfcf, type: 3}
+  - {fileID: 5822471294863959019, guid: ba9503cb5af92334892cff74e4e53855, type: 3}
+  UI: {fileID: 0}
+  reward: {fileID: 3928356748767648012}
+--- !u!114 &3928356748767648012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018310171808788747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c047d170ca9ef48a55525e8f13b72b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemButton: []
+  UI: {fileID: 0}
 --- !u!1 &1753965619022471256
 GameObject:
   m_ObjectHideFlags: 0

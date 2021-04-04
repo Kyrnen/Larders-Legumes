@@ -234,10 +234,6 @@ MonoBehaviour:
   - {fileID: 1218436647}
   - {fileID: 447917220}
   - {fileID: 471239324}
-  itemButton:
-  - {fileID: 5822471294863959019, guid: ba9503cb5af92334892cff74e4e53855, type: 3}
-  - {fileID: 3415812907400147671, guid: 1aa1456c7d89cd241b70eaf76767bfcf, type: 3}
-  UI: {fileID: 1076709888}
 --- !u!1 &71297815
 GameObject:
   m_ObjectHideFlags: 0
@@ -4968,9 +4964,17 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 1507632434073425494, guid: 48802140ca4bc3c448df66e017c2c3d9, type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 1076709888}
+    - target: {fileID: 1507632434073425494, guid: 48802140ca4bc3c448df66e017c2c3d9, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 1126532097}
+    - target: {fileID: 3928356748767648012, guid: 48802140ca4bc3c448df66e017c2c3d9, type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 1076709888}
     - target: {fileID: 7862695753299987114, guid: 48802140ca4bc3c448df66e017c2c3d9, type: 3}
       propertyPath: m_RootOrder
       value: 5

@@ -5,17 +5,36 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     Player player;
-    StatBar health;
+    public StatBar health;
 
     int maxHealth = 25;
     int currentHealth;
 
     public Transform cam;
 
+    public GameObject[] potentialDrops;
+    public GameObject UI;
+
+    public Drops reward;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        UI = GameObject.FindGameObjectWithTag("UI");
+
         currentHealth = maxHealth;
+        health.SetStatMax(currentHealth);
+
+        reward.itemButton = potentialDrops;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            TakeDamage(5);
+        }
     }
 
     private void LateUpdate()
@@ -30,7 +49,9 @@ public class Enemy : MonoBehaviour
 
         if (health.GetCurrentValue() <= 0)
         {
-            FindObjectOfType<GameManager>().PlayerDied();
+            reward.GenerateItem();
+            Debug.Log("ItemGenerated");
+            Destroy(gameObject);
         }
     }
 
@@ -49,7 +70,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("You're at max health");
     }
 
-    //Enemy should: Constantly face the player after spawning
+    //Enemy should: 
     //              attack the player when they are directly in front of them
     //              Take Damage when hit
 }
