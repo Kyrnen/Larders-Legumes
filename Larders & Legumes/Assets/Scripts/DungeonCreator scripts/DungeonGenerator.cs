@@ -18,9 +18,6 @@ public class DungeonGenerator : MonoBehaviour
     {
         BinarySpacePartitioner bsp = new BinarySpacePartitioner(dungeonWidth, dungeonLength);
         allSpaceNodes = bsp.PrepareNodesCollection(maxInterations, roomWidthMin, roomLengthMin)
-        List<Node> roomSpaces = StructureHelper.TraverseGraphToExtractLowestLeaves(bsp.RootNode);
-        RoomGenerator roomGenerator = new RoomGenerator(maxInterations, roomLengthMin, roomWidthMin);
-        List<Node> roomList = roomGenerator.GenerateRoomsInAGivenSpaces(roomSpaces);
         return new List<Node>(allSpaceNodes);
     }
 }
