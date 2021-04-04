@@ -22,23 +22,4 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void CheckIfFilled()
-    {
-        int count = 0;
-
-        foreach(bool slot in isFull)
-        {
-            if (slot) count++;
-        }
-
-        if (count == isFull.Length) 
-            filled = true;
-        else 
-            filled = false;
-    }
-
-    public bool IsFull()
-    {
-        return filled;
-    }
 }
