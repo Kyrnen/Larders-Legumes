@@ -206,12 +206,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  maxStamina: 60
-  currentStamina: 0
-  staminaReductionValue: 5
-  staminaReductionRate: 3
+  maxHunger: 120
+  currentHunger: 0
+  hungerValue: 1
+  hungerRate: 5
   health: {fileID: 2051519732}
-  stamina: {fileID: 1697195198}
+  hunger: {fileID: 1697195198}
 --- !u!114 &20577184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4219,7 +4219,7 @@ GameObject:
   - component: {fileID: 1697195199}
   - component: {fileID: 1697195198}
   m_Layer: 5
-  m_Name: Stamina Bar
+  m_Name: Hunger Meter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4243,7 +4243,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -487.7, y: 157.5}
-  m_SizeDelta: {x: 272.2784, y: 17.606}
+  m_SizeDelta: {x: 479.7314, y: 17.606}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1697195198
 MonoBehaviour:
@@ -4336,7 +4336,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

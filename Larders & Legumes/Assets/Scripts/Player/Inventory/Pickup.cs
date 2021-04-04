@@ -10,7 +10,6 @@ public class Pickup : MonoBehaviour
     private Inventory inventory;
     public GameObject itemButton;
     bool itemFound = true;
-    bool wanted = true;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +19,7 @@ public class Pickup : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0) && itemFound && wanted)
+        if(Input.GetMouseButtonDown(0) && itemFound)
         {
             Debug.Log("Found an item");
             AddToInventory();

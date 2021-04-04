@@ -7,28 +7,28 @@ public class Player : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
 
-    //Stamina will essentially act like a timer in most cases, decreasing over time to some degree.
-    public float maxStamina = 60f;
-    public float currentStamina;
+    //Hunger will essentially act like a timer in most cases, increasing over time to some degree.
+    public float maxHunger = 120f;
+    public float currentHunger;
     
-    //Reduce Stamina at rate of StaminaReductionValue/StaminaReductionRate
-    public float staminaReductionValue = .5f;
-    public int staminaReductionRate = 5;
-    // If you have already started reducing stamina, we do not want this function to run again until it has completed itself fully,
-    // otherwise, the stamina that is reduced will compound
-    bool staminaReduction = false;
+    //Reduce Hunger at rate of hungerValue/hungerRate
+    public float hungerValue = 1f;
+    public int hungerRate = 5;
+    // If you have already started increasing hunger, we do not want this function to run again until it has completed itself fully,
+    // otherwise, the hunger that is reduced will compound
+    bool hungerRising = false;
 
 
     public StatBar health;
-    public StatBar stamina;
+    public StatBar hunger;
 
     private void Start()
     {
         currentHealth = maxHealth;
         health.SetStatMax(maxHealth);
 
-        currentStamina = maxStamina;
-        stamina.SetStatMax(maxStamina);
+        currentHunger = 0f;
+        hunger.SetBaseHunger(maxHunger);
     }
 
     private void Update()
@@ -44,36 +44,36 @@ public class Player : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.J))
         {
-            RecoverStamina(10);
-            Debug.Log(currentStamina);
+            DecreaseHunger(10);
+            Debug.Log(currentHunger);
         }
 
-        ReduceStaminaOverTime(staminaReductionValue, staminaReductionRate);
+        IncreaseHungerOverTime(hungerValue, hungerRate);
 
     }
 
-    public void ReduceStaminaOverTime(float value, int time)
+    public void IncreaseHungerOverTime(float value, int time)
     {
         
-        if (!staminaReduction)
+        if (!hungerRising)
         {
-            staminaReduction = true;
-            StartCoroutine(ReduceStaminaOverTimeCoroutine(value, time));
+            hungerRising = true;
+            StartCoroutine(IncreaseHungerOverTimeCoroutine(value, time));
         }
     }
 
-    IEnumerator ReduceStaminaOverTimeCoroutine(float value, float time)
+    IEnumerator IncreaseHungerOverTimeCoroutine(float value, float time)
     {
-        float staminaReduced = 0;
+        float hungerIncreased = 0;
         float reducedPerLoop = value / time;
-        while(staminaReduced < value)
+        while(hungerIncreased < value)
         {
-            Debug.Log(staminaReduced);
-            staminaReduced += reducedPerLoop;
+            Debug.Log(hungerIncreased);
+            hungerIncreased += reducedPerLoop;
             yield return new WaitForSeconds(1f);
         }
-        ReduceStamina(staminaReduced);
-        staminaReduction = false;
+        IncreaseHunger(hungerIncreased);
+        hungerRising = false;
     }
 
     void TakeDamage (int damage)
@@ -102,24 +102,32 @@ public class Player : MonoBehaviour
             Debug.Log("You're at max health");
     }
 
-    void ReduceStamina (float value)
+    void DecreaseHunger (float value)
     {
-        currentStamina -= value;
-        stamina.SetValueTo(currentStamina);
+        if (currentHunger == 0)
+            Debug.Log("Not hungry right now");
+        else
+        {
+            if (currentHunger - value >= 0)
+                currentHunger -= value;
+            else
+                currentHunger = 0;
+
+            hunger.SetValueTo(currentHunger);
+        }
+       
+
     }
 
-    void RecoverStamina (float value)
+    void IncreaseHunger(float value)
     {
-        if (currentStamina < maxStamina)
-        {
-            if (currentStamina + value <= maxStamina)
-                currentStamina += value;
-            else
-                currentStamina = maxStamina;
 
-            stamina.SetValueTo(currentStamina);
-        }
+        if (currentHunger + value <= maxHunger)
+            currentHunger += value;
         else
-            Debug.Log("You're at max stamina");
+            currentHunger = maxHunger;
+
+        hunger.SetValueTo(currentHunger);
+
     }
 }
