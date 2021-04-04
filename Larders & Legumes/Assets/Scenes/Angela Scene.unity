@@ -234,7 +234,9 @@ MonoBehaviour:
   - {fileID: 1218436647}
   - {fileID: 447917220}
   - {fileID: 471239324}
-  itemButton: {fileID: 863595235209516032, guid: 9954d422ab534d940ba4f41b116325eb, type: 3}
+  itemButton:
+  - {fileID: 5822471294863959019, guid: ba9503cb5af92334892cff74e4e53855, type: 3}
+  - {fileID: 3415812907400147671, guid: 1aa1456c7d89cd241b70eaf76767bfcf, type: 3}
   UI: {fileID: 1076709888}
 --- !u!1 &71297815
 GameObject:
