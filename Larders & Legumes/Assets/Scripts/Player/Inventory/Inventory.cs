@@ -10,13 +10,13 @@ public class Inventory : MonoBehaviour
     private bool filled = false;
 
     //DEBUG
-    public GameObject itemButton;
+    public GameObject[] itemButton;
     public GameObject UI;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            GameObject img = Instantiate(itemButton, UI.transform);
+            GameObject img = Instantiate(itemButton[UnityEngine.Random.Range(0, itemButton.Length)], UI.transform);
             img.transform.SetParent(UI.transform, true);
             Time.timeScale = 0f;
         }

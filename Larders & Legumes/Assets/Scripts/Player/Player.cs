@@ -37,16 +37,6 @@ public class Player : MonoBehaviour
         {
             TakeDamage(20);
         }
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            Heal(10);
-        }
-        
-        if(Input.GetKeyDown(KeyCode.J))
-        {
-            DecreaseHunger(10);
-            Debug.Log(currentHunger);
-        }
 
         IncreaseHungerOverTime(hungerValue, hungerRate);
 
@@ -87,7 +77,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Heal (int value)
+    public void Heal (int value)
     {
         if (currentHealth < maxHealth)
         {
@@ -102,7 +92,7 @@ public class Player : MonoBehaviour
             Debug.Log("You're at max health");
     }
 
-    void DecreaseHunger (float value)
+    public void DecreaseHunger (float value)
     {
         if (currentHunger == 0)
             Debug.Log("Not hungry right now");
