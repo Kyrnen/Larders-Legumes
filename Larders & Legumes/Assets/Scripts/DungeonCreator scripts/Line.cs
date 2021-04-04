@@ -18,6 +18,6 @@ public class Line : MonoBehaviour
 
 public enum Orientation
 {
-    Horizontal = 0;
-    Vertical = 1;
+    Horizontal = 0,
+    Vertical = 1,
 }
