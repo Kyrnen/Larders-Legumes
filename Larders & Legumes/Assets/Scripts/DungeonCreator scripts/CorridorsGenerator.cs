@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class CorridorsGenerator
 {
+
     public List<Node> CreateCorridor(List<RoomNode> allNodesCollection, int corridorWidth)
     {
         List<Node> corridorList = new List<Node>();
         Queue<RoomNode> structuresToCheck = new Queue<RoomNode>(
-            allNodesCollection.OrderByDescending(node = node.TreeLayerIndex).ToList());
+            allNodesCollection.OrderByDescending(node => node.TreeLayerIndex).ToList());
         while (structuresToCheck.Count > 0)
         {
             var node = structuresToCheck.Dequeue();
