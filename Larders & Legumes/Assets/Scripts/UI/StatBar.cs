@@ -22,6 +22,14 @@ public class StatBar : MonoBehaviour
             fill.color = gradient.Evaluate(1f);
     }
 
+    public void SetBaseHunger(float stat)
+    {
+        slider.maxValue = stat;
+        slider.value = 0;
+        if (useGradient)
+            fill.color = gradient.Evaluate(1f);
+    }
+
     public void SetValueTo(float stat)
     {
         slider.value = stat;
