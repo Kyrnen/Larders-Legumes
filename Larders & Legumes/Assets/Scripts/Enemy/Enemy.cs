@@ -38,13 +38,13 @@ public class Enemy : MonoBehaviour
     {
         currentHealth -= damage;
         health.SetValueTo(currentHealth);
+    }
 
-        if (health.GetCurrentValue() <= 0)
-        {
-            reward.GenerateItem();
-            Debug.Log("ItemGenerated");
-            Destroy(gameObject);
-        }
+    public void Drop()
+    {
+        reward.GenerateItem();
+        Debug.Log("ItemGenerated");
+        Destroy(gameObject);
     }
 
     public void Heal(int value)

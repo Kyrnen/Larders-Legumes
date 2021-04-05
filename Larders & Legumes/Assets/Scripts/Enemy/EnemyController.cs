@@ -11,8 +11,8 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        enemy = GetComponentInParent<Enemy>().GetComponent<Enemy>();
-        player = GetComponentInParent<Player>().GetComponent<Player>();
+        enemy = FindObjectOfType<Enemy>().GetComponent<Enemy>();
+        player = FindObjectOfType<Player>().GetComponent<Player>();
     }
 
     public void DealDamage(int attack)

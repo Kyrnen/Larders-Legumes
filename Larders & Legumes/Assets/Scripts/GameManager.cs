@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,16 +10,99 @@ public class GameManager : MonoBehaviour
     public PlayerController p;
     public EnemyController e;
 
-    private bool combatCommences = false;
+    public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST };
+    public BattleState state;
+    //private bool combatCommences = false;
 
     private void Update()
     {
-        if (p.inCombat && !combatCommences)
+        if (p.inCombat)
         {
-            combatCommences = true;
-           // StartCoroutine(BeginTurnBasedCombat());
+            state = BattleState.START;
+            StartCoroutine(SetupBattle());
+           // BeginTurnBasedCombat();
         }
     }
+
+    IEnumerator SetupBattle()
+    {
+        //Space for dialogue and general setup
+        yield return null;
+        state = BattleState.PLAYERTURN;
+    }
+
+
+    void PlayerTurn()
+    {
+
+    }
+
+    public void OnAttackPressed()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+
+        StartCoroutine(PlayerAttack());
+    }
+
+    IEnumerator PlayerAttack()
+    {
+        bool isDead;
+        
+        if (e.enemy.currentHealth - p.player.attackPower <= 0) isDead = true;
+        else isDead = false;
+
+        p.DealDamage(p.player.attackPower);
+        
+        yield return new WaitForSeconds(1f);
+
+        if(isDead)
+        {
+            state = BattleState.WON;
+            EndBattle();
+        }
+        else
+        {
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    void EndBattle()
+    {
+        if(state == BattleState.WON)
+        {
+            e.enemy.Drop();
+        }
+        else if(state == BattleState.LOST)
+        {
+            PlayerDied();
+        }
+    }
+
+    IEnumerator EnemyTurn()
+    {
+        bool isDead;
+
+        if (p.player.currentHealth - e.enemy.attackPower <= 0) isDead = true;
+        else isDead = false;
+
+        yield return new WaitForSeconds(1f);
+        e.DealDamage(e.enemy.attackPower);
+
+        yield return new WaitForSeconds(1f);
+        if(isDead)
+        {
+            state = BattleState.LOST;
+            EndBattle();
+        }
+        else
+        {
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+    }
+
 
     public void PlayerDied()
     {
@@ -32,33 +116,6 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
-    }
-
-    IEnumerator BeginTurnBasedCombat()
-    {
-        while (p.player.currentHealth > 0 && e.enemy)
-        {
-            if (!p.hasAttacked)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    p.DealDamage(p.player.attackPower);
-                    p.hasAttacked = true;
-                    e.hasAttacked = false;
-                    yield return new WaitForSeconds(1.5f);
-                }
-            }
-            if (!e.hasAttacked)
-            {
-                e.DealDamage(e.player.attackPower);
-                e.hasAttacked = true;
-                p.hasAttacked = false;
-                yield return new WaitForSeconds(1.5f);
-            }
-        }
-
-        combatCommences = false;
-        yield return null;
     }
 
 }

@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
 
     public bool inCombat = false;
     public bool engaged = false;
-    public bool hasAttacked = false;
     
     public bool blockedForwards = false;
     public bool blockedBackwards = false;
@@ -28,8 +27,14 @@ public class PlayerController : MonoBehaviour
     RaycastHit hitRight;
     public Player player;
 
-    public void RotateLeft() { if (AtRest && !engaged) targetRotation -= Vector3.up * 90f; }
-    public void RotateRight() { if (AtRest && !engaged) targetRotation += Vector3.up * 90f; }
+    public void RotateLeft() { 
+        if (AtRest) 
+            targetRotation -= Vector3.up * 90f; 
+    }
+    public void RotateRight() { 
+        if (AtRest) 
+            targetRotation += Vector3.up * 90f; 
+    }
     public void MoveForwards() { if (AtRest && !engaged && !blockedForwards) targetGridPos += transform.forward; }
     public void MoveBackwards() { if (AtRest && !engaged && !blockedBackwards) targetGridPos -= transform.forward; }
     public void MoveLeft() { if (AtRest && !engaged && !blockedLeft) targetGridPos -= transform.right; }
@@ -63,7 +68,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             inCombat = true;
-            DealDamage(player.attackPower);
         }
     }
 
@@ -71,10 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         if (hitForwards.collider.gameObject.tag == "Enemy")
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                hitForwards.collider.gameObject.GetComponent<Enemy>().GetComponent<Enemy>().TakeDamage(attack);
-            }
+            hitForwards.collider.gameObject.GetComponent<Enemy>().GetComponent<Enemy>().TakeDamage(attack);
         }
     }
 
@@ -98,48 +99,48 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(transform.position, this.transform.forward, out hitForwards, 3f) && 
             hitForwards.collider.gameObject.tag == "Wall")
         {
-            Debug.Log("Obstuction ahead");
+            //Debug.Log("Obstuction ahead");
             blockedForwards = true;
         }
         else
         {
-            Debug.Log("No obstructions ahead");
+            //Debug.Log("No obstructions ahead");
             blockedForwards = false;
         }
 
         if (Physics.Raycast(transform.position, -this.transform.forward, out hitBackwards, 3f) && 
             hitBackwards.collider.gameObject.tag == "Wall")
         {
-            Debug.Log("Obstuction behind");
+            //Debug.Log("Obstuction behind");
             blockedBackwards = true;
         }
         else
         {
-            Debug.Log("No obstructions behind");
+            //Debug.Log("No obstructions behind");
             blockedBackwards = false;
         }
 
         if (Physics.Raycast(transform.position, -this.transform.right, out hitLeft, 3f) && 
             hitLeft.collider.gameObject.tag == "Wall")
         {
-            Debug.Log("Obstuction left");
+            //Debug.Log("Obstuction left");
             blockedLeft = true;
         }
         else
         {
-            Debug.Log("No obstructions left");
+            //Debug.Log("No obstructions left");
             blockedLeft = false;
         }
 
         if (Physics.Raycast(transform.position, this.transform.right, out hitRight, 3f) && 
             hitRight.collider.gameObject.tag == "Wall")
         {
-            Debug.Log("Obstuction right");
+            //Debug.Log("Obstuction right");
             blockedRight = true;
         }
         else
         {
-            Debug.Log("No obstructions right");
+            //Debug.Log("No obstructions right");
             blockedRight = false;
         }
     }
