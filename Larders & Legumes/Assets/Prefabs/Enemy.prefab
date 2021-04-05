@@ -464,9 +464,10 @@ GameObject:
   - component: {fileID: 7862695753299987114}
   - component: {fileID: 1507632434073425494}
   - component: {fileID: 3928356748767648012}
+  - component: {fileID: 639249898}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -520,6 +521,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemButton: []
   UI: {fileID: 0}
+--- !u!65 &639249898
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018310171808788747}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 3, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1753965619022471256
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +545,6 @@ GameObject:
   - component: {fileID: 345541714380187698}
   - component: {fileID: 7418486328432212324}
   - component: {fileID: 1277418460944909103}
-  - component: {fileID: 161845616537662593}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -603,16 +616,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &161845616537662593
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1753965619022471256}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.5, y: 2.5, z: 2.5}
-  m_Center: {x: 0, y: 0, z: 0}
