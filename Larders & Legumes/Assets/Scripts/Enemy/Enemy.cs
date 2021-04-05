@@ -70,7 +70,5 @@ public class Enemy : MonoBehaviour
             Debug.Log("You're at max health");
     }
 
-    //Enemy should: 
-    //              attack the player when they are directly in front of them
-    //              Take Damage when hit
+    //Enemy should: attack the player when they are directly in front of them
 }
