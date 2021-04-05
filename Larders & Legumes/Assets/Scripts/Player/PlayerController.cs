@@ -27,14 +27,8 @@ public class PlayerController : MonoBehaviour
     RaycastHit hitRight;
     public Player player;
 
-    public void RotateLeft() { 
-        if (AtRest) 
-            targetRotation -= Vector3.up * 90f; 
-    }
-    public void RotateRight() { 
-        if (AtRest) 
-            targetRotation += Vector3.up * 90f; 
-    }
+    public void RotateLeft() { if (AtRest && !engaged) targetRotation -= Vector3.up * 90f; }
+    public void RotateRight() { if (AtRest && !engaged) targetRotation += Vector3.up * 90f; }
     public void MoveForwards() { if (AtRest && !engaged && !blockedForwards) targetGridPos += transform.forward; }
     public void MoveBackwards() { if (AtRest && !engaged && !blockedBackwards) targetGridPos -= transform.forward; }
     public void MoveLeft() { if (AtRest && !engaged && !blockedLeft) targetGridPos -= transform.right; }
@@ -169,10 +163,10 @@ public class PlayerController : MonoBehaviour
             }
             
         }
-        else
-        {
-            targetGridPos = prevTargetGridPos;
-        }
+        //else
+        //{
+        //    targetGridPos = prevTargetGridPos;
+        //}
 
     }
 }
