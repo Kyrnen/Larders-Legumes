@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public float transitionSpeed = 10f;
     public float transitionRotationSpeed = 500f;
 
-    public CapsuleCollider c;
     public bool inCombat = false;
     public bool blockedForwards = false;
     public bool blockedBackwards = false;
@@ -49,7 +48,8 @@ public class PlayerController : MonoBehaviour
     private void LateUpdate()
     {
         CheckBlocks();
-        MovePlayer();
+        if (!inCombat)
+            MovePlayer();
     }
 
     void CheckBlocks()
@@ -148,33 +148,4 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    Debug.Log("Ran into Something");
-    //    if(other.tag == "Enemy")
-    //    {
-    //        inCombat = true;
-    //    }
-    //    if(other.tag == "Wall")
-    //    {
-    //        blocked = true;
-    //        //Vector3 diff = gameObject.transform.position - other.gameObject.transform.position;
-    //        //Vector3 direction = new Vector3(diff.x, 0, diff.z).normalized;
-    //    }
-
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    Debug.Log("Now you can go");
-    //    if(other.tag == "Enemy")
-    //    {
-    //        inCombat = false;
-    //    }
-    //    if(other.tag == "Wall")
-    //    {
-
-    //    }
-    //}
 }
