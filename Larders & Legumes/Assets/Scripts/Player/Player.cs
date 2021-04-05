@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         hungerRising = false;
     }
 
-    void TakeDamage (int damage)
+    public void TakeDamage (int damage)
     { 
         currentHealth -= damage;
         health.SetValueTo(currentHealth);

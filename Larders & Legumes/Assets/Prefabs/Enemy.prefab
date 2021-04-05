@@ -500,12 +500,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf698ca5137e5445b201493df785e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 1339664624}
   cam: {fileID: 0}
+  UI: {fileID: 0}
+  health: {fileID: 1339664624}
+  attackPower: 10
   potentialDrops:
   - {fileID: 3415812907400147671, guid: 1aa1456c7d89cd241b70eaf76767bfcf, type: 3}
   - {fileID: 5822471294863959019, guid: ba9503cb5af92334892cff74e4e53855, type: 3}
-  UI: {fileID: 0}
   reward: {fileID: 3928356748767648012}
 --- !u!114 &3928356748767648012
 MonoBehaviour:
@@ -546,7 +547,7 @@ GameObject:
   - component: {fileID: 7418486328432212324}
   - component: {fileID: 1277418460944909103}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

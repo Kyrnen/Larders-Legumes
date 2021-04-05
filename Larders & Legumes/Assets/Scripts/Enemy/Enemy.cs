@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    Player player;
+
+    public Transform cam;
+    public GameObject UI;
+
     public StatBar health;
 
     int maxHealth = 25;
-    int currentHealth;
+    public int currentHealth;
 
-    public Transform cam;
+    public int attackPower = 10;
 
     public GameObject[] potentialDrops;
-    public GameObject UI;
 
     public Drops reward;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         cam = GameObject.FindGameObjectWithTag("MainCamera").transform;
         UI = GameObject.FindGameObjectWithTag("UI");
-
         currentHealth = maxHealth;
         health.SetStatMax(currentHealth);
 
@@ -58,9 +58,5 @@ public class Enemy : MonoBehaviour
 
             health.SetValueTo(currentHealth);
         }
-        else
-            Debug.Log("You're at max health");
     }
-
-    //Enemy should: attack the player when they are directly in front of them
 }

@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     public float transitionRotationSpeed = 500f;
 
     public bool inCombat = false;
+    public bool engaged = false;
+    public bool hasAttacked = false;
+    
     public bool blockedForwards = false;
     public bool blockedBackwards = false;
     public bool blockedLeft = false;
@@ -23,14 +26,14 @@ public class PlayerController : MonoBehaviour
     RaycastHit hitBackwards;
     RaycastHit hitLeft;
     RaycastHit hitRight;
-    Player player;
+    public Player player;
 
-    public void RotateLeft() { if (AtRest && !inCombat) targetRotation -= Vector3.up * 90f; }
-    public void RotateRight() { if (AtRest && !inCombat) targetRotation += Vector3.up * 90f; }
-    public void MoveForwards() { if (AtRest && !inCombat && !blockedForwards) targetGridPos += transform.forward; }
-    public void MoveBackwards() { if (AtRest && !inCombat && !blockedBackwards) targetGridPos -= transform.forward; }
-    public void MoveLeft() { if (AtRest && !inCombat && !blockedLeft) targetGridPos -= transform.right; }
-    public void MoveRight() { if (AtRest && !inCombat && !blockedRight) targetGridPos += transform.right; }
+    public void RotateLeft() { if (AtRest && !engaged) targetRotation -= Vector3.up * 90f; }
+    public void RotateRight() { if (AtRest && !engaged) targetRotation += Vector3.up * 90f; }
+    public void MoveForwards() { if (AtRest && !engaged && !blockedForwards) targetGridPos += transform.forward; }
+    public void MoveBackwards() { if (AtRest && !engaged && !blockedBackwards) targetGridPos -= transform.forward; }
+    public void MoveLeft() { if (AtRest && !engaged && !blockedLeft) targetGridPos -= transform.right; }
+    public void MoveRight() { if (AtRest && !engaged && !blockedRight) targetGridPos += transform.right; }
 
     //mostly if you want smooth transitions
     bool AtRest
@@ -55,13 +58,16 @@ public class PlayerController : MonoBehaviour
     private void LateUpdate()
     {
         CheckBlocks();
-        if (!inCombat)
+        if (!engaged)
             MovePlayer();
         else
+        {
+            inCombat = true;
             DealDamage(player.attackPower);
+        }
     }
 
-    void DealDamage(int attack)
+    public void DealDamage(int attack)
     {
         if (hitForwards.collider.gameObject.tag == "Enemy")
         {
@@ -81,15 +87,16 @@ public class PlayerController : MonoBehaviour
            Physics.Raycast(transform.position, this.transform.right, out hitRight, 3f) && hitRight.collider.gameObject.tag == "Enemy")
         {
             Debug.Log("Enemy Sighted");
-            inCombat = true;
+            engaged = true;
         }
         else
         {
             Debug.Log("No enemy in vicinity");
-            inCombat = false;
+            engaged = false;
         }
 
-        if (Physics.Raycast(transform.position, this.transform.forward, out hitForwards, 3f) && hitForwards.collider.gameObject.tag == "Wall")
+        if (Physics.Raycast(transform.position, this.transform.forward, out hitForwards, 3f) && 
+            hitForwards.collider.gameObject.tag == "Wall")
         {
             Debug.Log("Obstuction ahead");
             blockedForwards = true;
@@ -100,7 +107,8 @@ public class PlayerController : MonoBehaviour
             blockedForwards = false;
         }
 
-        if (Physics.Raycast(transform.position, -this.transform.forward, out hitBackwards, 3f) && hitBackwards.collider.gameObject.tag == "Wall")
+        if (Physics.Raycast(transform.position, -this.transform.forward, out hitBackwards, 3f) && 
+            hitBackwards.collider.gameObject.tag == "Wall")
         {
             Debug.Log("Obstuction behind");
             blockedBackwards = true;
@@ -111,7 +119,8 @@ public class PlayerController : MonoBehaviour
             blockedBackwards = false;
         }
 
-        if (Physics.Raycast(transform.position, -this.transform.right, out hitLeft, 3f) && hitLeft.collider.gameObject.tag == "Wall")
+        if (Physics.Raycast(transform.position, -this.transform.right, out hitLeft, 3f) && 
+            hitLeft.collider.gameObject.tag == "Wall")
         {
             Debug.Log("Obstuction left");
             blockedLeft = true;
@@ -122,7 +131,8 @@ public class PlayerController : MonoBehaviour
             blockedLeft = false;
         }
 
-        if (Physics.Raycast(transform.position, this.transform.right, out hitRight, 3f) && hitRight.collider.gameObject.tag == "Wall")
+        if (Physics.Raycast(transform.position, this.transform.right, out hitRight, 3f) && 
+            hitRight.collider.gameObject.tag == "Wall")
         {
             Debug.Log("Obstuction right");
             blockedRight = true;
