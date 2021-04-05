@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     public StatBar health;
     public StatBar hunger;
 
+    public int attackPower = 5;
+
     private void Start()
     {
         currentHealth = maxHealth;

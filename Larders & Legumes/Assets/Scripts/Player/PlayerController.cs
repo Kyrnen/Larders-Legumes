@@ -19,6 +19,12 @@ public class PlayerController : MonoBehaviour
     Vector3 prevTargetGridPos;
     Vector3 targetRotation;
 
+    RaycastHit hitForwards;
+    RaycastHit hitBackwards;
+    RaycastHit hitLeft;
+    RaycastHit hitRight;
+    Player player;
+
     public void RotateLeft() { if (AtRest && !inCombat) targetRotation -= Vector3.up * 90f; }
     public void RotateRight() { if (AtRest && !inCombat) targetRotation += Vector3.up * 90f; }
     public void MoveForwards() { if (AtRest && !inCombat && !blockedForwards) targetGridPos += transform.forward; }
@@ -41,6 +47,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GetComponent<Player>();
         targetGridPos = Vector3Int.RoundToInt(transform.position);
     }
 
@@ -50,14 +57,23 @@ public class PlayerController : MonoBehaviour
         CheckBlocks();
         if (!inCombat)
             MovePlayer();
+        else
+            DealDamage(player.attackPower);
+    }
+
+    void DealDamage(int attack)
+    {
+        if (hitForwards.collider.gameObject.tag == "Enemy")
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                hitForwards.collider.gameObject.GetComponent<Enemy>().GetComponent<Enemy>().TakeDamage(attack);
+            }
+        }
     }
 
     void CheckBlocks()
     {
-        RaycastHit hitForwards;
-        RaycastHit hitBackwards;
-        RaycastHit hitLeft;
-        RaycastHit hitRight;
 
         if (Physics.Raycast(transform.position, this.transform.forward, out hitForwards, 3f) && hitForwards.collider.gameObject.tag == "Enemy" ||
            Physics.Raycast(transform.position, -this.transform.forward, out hitBackwards, 3f) && hitBackwards.collider.gameObject.tag == "Enemy" ||

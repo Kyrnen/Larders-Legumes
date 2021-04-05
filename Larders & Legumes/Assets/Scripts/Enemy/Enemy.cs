@@ -29,20 +29,12 @@ public class Enemy : MonoBehaviour
         reward.itemButton = potentialDrops;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            TakeDamage(5);
-        }
-    }
-
     private void LateUpdate()
     {
         transform.LookAt(transform.position + cam.forward);
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
         health.SetValueTo(currentHealth);
