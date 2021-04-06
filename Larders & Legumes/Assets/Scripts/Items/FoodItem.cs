@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodItem : MonoBehaviour
+public class FoodItem : Item
 {
-    private Player player;
-    float value = 10f;
-
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        player = FindObjectOfType<Player>().GetComponent<Player>();
+        itemName = "Food Item";
+        value = 10;
     }
 
-    public void Use()
+    public new void Use()
     {
         player.DecreaseHunger(value);
         Destroy(gameObject);

@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealingItem : MonoBehaviour
+public class HealingItem : Item
 {
-    Player player;
-    int value = 10;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        player = FindObjectOfType<Player>().GetComponent<Player>();
+        itemName = "Healing Item";
+        value = 10;
     }
 
-    public void Use()
+    public new void Use()
     {
         player.Heal(value);
         Destroy(gameObject);

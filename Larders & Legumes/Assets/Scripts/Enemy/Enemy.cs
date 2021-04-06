@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
 
     public GameObject[] potentialDrops;
 
-    public Drops reward;
+    public Item reward;
 
     private void Start()
     {
