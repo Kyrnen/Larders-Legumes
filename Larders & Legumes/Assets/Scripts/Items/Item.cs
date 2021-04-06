@@ -15,7 +15,6 @@ public class Item : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<Player>().GetComponent<Player>();
-        itemName = "Item";
     }
 
     public void GenerateItem()
