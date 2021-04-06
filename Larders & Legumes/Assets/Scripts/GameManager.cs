@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
         {
             state = BattleState.START;
             StartCoroutine(SetupBattle());
-           // BeginTurnBasedCombat();
         }
     }
 
@@ -29,12 +28,13 @@ public class GameManager : MonoBehaviour
         //Space for dialogue and general setup
         yield return null;
         state = BattleState.PLAYERTURN;
+        PlayerTurn();
     }
 
 
     void PlayerTurn()
     {
-
+        p.LocateEnemy();
     }
 
     public void OnAttackPressed()

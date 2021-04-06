@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
 
     public bool inCombat = false;
     public bool engaged = false;
-    
+    public bool rotationLocked = false;
+
     public bool blockedForwards = false;
     public bool blockedBackwards = false;
     public bool blockedLeft = false;
@@ -21,14 +22,14 @@ public class PlayerController : MonoBehaviour
     Vector3 prevTargetGridPos;
     Vector3 targetRotation;
 
-    RaycastHit hitForwards;
+    public RaycastHit hitForwards;
     RaycastHit hitBackwards;
     RaycastHit hitLeft;
     RaycastHit hitRight;
     public Player player;
 
-    public void RotateLeft() { if (AtRest && !engaged) targetRotation -= Vector3.up * 90f; }
-    public void RotateRight() { if (AtRest && !engaged) targetRotation += Vector3.up * 90f; }
+    public void RotateLeft() { if (AtRest && !rotationLocked) targetRotation -= Vector3.up * 90f; }
+    public void RotateRight() { if (AtRest && !rotationLocked) targetRotation += Vector3.up * 90f; }
     public void MoveForwards() { if (AtRest && !engaged && !blockedForwards) targetGridPos += transform.forward; }
     public void MoveBackwards() { if (AtRest && !engaged && !blockedBackwards) targetGridPos -= transform.forward; }
     public void MoveLeft() { if (AtRest && !engaged && !blockedLeft) targetGridPos -= transform.right; }
@@ -39,7 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         get
         {
-            if (Vector3.Distance(transform.position, targetGridPos) < 0.05f && 
+            if (Vector3.Distance(transform.position, targetGridPos) < 0.05f &&
                 Vector3.Distance(transform.eulerAngles, targetRotation) < 0.05f)
                 return true;
             else return false;
@@ -73,13 +74,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void LocateEnemy()
+    {
+        if (!rotationLocked)
+        {
+            MovePlayer();
+            CheckBlocks();
+        }
+    }
+
     void CheckBlocks()
     {
 
-        if (Physics.Raycast(transform.position, this.transform.forward, out hitForwards, 3f) && hitForwards.collider.gameObject.tag == "Enemy" ||
-           Physics.Raycast(transform.position, -this.transform.forward, out hitBackwards, 3f) && hitBackwards.collider.gameObject.tag == "Enemy" ||
-           Physics.Raycast(transform.position, -this.transform.right, out hitLeft, 3f) && hitLeft.collider.gameObject.tag == "Enemy" ||
-           Physics.Raycast(transform.position, this.transform.right, out hitRight, 3f) && hitRight.collider.gameObject.tag == "Enemy")
+        if (Physics.Raycast(transform.position, this.transform.forward, out hitForwards, 3f) && hitForwards.collider.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Enemy Sighted");
+            engaged = true;
+            rotationLocked = true;
+        }
+        else if(Physics.Raycast(transform.position, -this.transform.forward, out hitBackwards, 3f) && hitBackwards.collider.gameObject.tag == "Enemy" ||
+                Physics.Raycast(transform.position, -this.transform.right, out hitLeft, 3f) && hitLeft.collider.gameObject.tag == "Enemy" ||
+                Physics.Raycast(transform.position, this.transform.right, out hitRight, 3f) && hitRight.collider.gameObject.tag == "Enemy")
         {
             Debug.Log("Enemy Sighted");
             engaged = true;
