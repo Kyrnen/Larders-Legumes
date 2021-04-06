@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public int maxHealth = 100;
-    public float currentHealth;
+    public int currentHealth;
 
     //Hunger will essentially act like a timer in most cases, increasing over time to some degree.
     public float maxHunger = 120f;
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Heal (float value)
+    public void Heal (int value)
     {
         if (currentHealth < maxHealth)
         {

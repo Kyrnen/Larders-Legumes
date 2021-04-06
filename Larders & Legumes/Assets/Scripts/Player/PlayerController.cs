@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,7 +27,6 @@ public class PlayerController : MonoBehaviour
     RaycastHit hitLeft;
     RaycastHit hitRight;
     public Player player;
-    public Button Attack;
 
     public void RotateLeft() { if (AtRest && !rotationLocked) targetRotation -= Vector3.up * 90f; }
     public void RotateRight() { if (AtRest && !rotationLocked) targetRotation += Vector3.up * 90f; }
@@ -90,27 +88,22 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(transform.position, this.transform.forward, out hitForwards, 3f) && hitForwards.collider.gameObject.tag == "Enemy")
         {
-            //Debug.Log("Enemy Sighted");
+            Debug.Log("Enemy Sighted");
             engaged = true;
             rotationLocked = true;
-            Attack.gameObject.SetActive(true);
-            Attack.interactable = true;
         }
         else if(Physics.Raycast(transform.position, -this.transform.forward, out hitBackwards, 3f) && hitBackwards.collider.gameObject.tag == "Enemy" ||
                 Physics.Raycast(transform.position, -this.transform.right, out hitLeft, 3f) && hitLeft.collider.gameObject.tag == "Enemy" ||
                 Physics.Raycast(transform.position, this.transform.right, out hitRight, 3f) && hitRight.collider.gameObject.tag == "Enemy")
         {
-            //Debug.Log("Enemy Sighted");
+            Debug.Log("Enemy Sighted");
             engaged = true;
-            Attack.gameObject.SetActive(true);
-            Attack.interactable = false;
         }
         else
         {
-           // Debug.Log("No enemy in vicinity");
+            Debug.Log("No enemy in vicinity");
             engaged = false;
             rotationLocked = false;
-            Attack.gameObject.SetActive(false);
         }
 
         if (Physics.Raycast(transform.position, this.transform.forward, out hitForwards, 3f) && 

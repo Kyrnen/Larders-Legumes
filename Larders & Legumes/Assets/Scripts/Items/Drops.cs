@@ -2,20 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Drops : MonoBehaviour
 {
-    protected Player player;
-    public string itemName;
-    protected float value;
-
     //DEBUG
     public GameObject[] itemButton;
     public GameObject UI;
-
-    private void Start()
-    {
-        player = FindObjectOfType<Player>().GetComponent<Player>();
-    }
 
     public void GenerateItem()
     {
@@ -23,6 +14,4 @@ public class Item : MonoBehaviour
         img.transform.SetParent(UI.transform, true);
         Time.timeScale = 0f;
     }
-
-    public void Use() { }
 }
