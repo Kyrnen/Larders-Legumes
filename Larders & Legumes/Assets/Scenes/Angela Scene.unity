@@ -180,6 +180,7 @@ MonoBehaviour:
   transitionRotationSpeed: 500
   inCombat: 0
   engaged: 0
+  rotationLocked: 0
   blockedForwards: 0
   blockedBackwards: 0
   blockedLeft: 0

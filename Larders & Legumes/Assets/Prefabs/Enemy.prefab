@@ -503,6 +503,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   UI: {fileID: 0}
   health: {fileID: 1339664624}
+  currentHealth: 0
   attackPower: 10
   potentialDrops:
   - {fileID: 3415812907400147671, guid: 1aa1456c7d89cd241b70eaf76767bfcf, type: 3}

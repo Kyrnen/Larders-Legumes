@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("No enemy in vicinity");
             engaged = false;
+            rotationLocked = false;
         }
 
         if (Physics.Raycast(transform.position, this.transform.forward, out hitForwards, 3f) && 

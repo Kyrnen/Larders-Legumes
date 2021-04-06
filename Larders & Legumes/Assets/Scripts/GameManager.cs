@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST };
     public BattleState state;
-    //private bool combatCommences = false;
 
     private void Update()
     {
